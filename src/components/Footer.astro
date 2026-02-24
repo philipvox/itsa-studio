@@ -1,0 +1,46 @@
+---
+interface Props {
+  tagline?: string;
+}
+
+const { tagline = 'Design with a Soul' } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer__inner">
+    <p class="footer__copy type-body">&copy; {year} ITSA Studio</p>
+    <p class="footer__tagline type-body">{tagline}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: var(--spacing-lg);
+    border-top: 1px solid rgba(26, 26, 26, 0.1);
+  }
+
+  .footer__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer__tagline {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 480px) {
+    .footer {
+      padding: var(--spacing-md);
+    }
+
+    .footer__inner {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      text-align: center;
+    }
+  }
+</style>

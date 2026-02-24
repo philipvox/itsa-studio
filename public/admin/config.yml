@@ -1,0 +1,50 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/assets/images"
+public_folder: "/src/assets/images"
+
+collections:
+  - name: "site"
+    label: "Site Content"
+    files:
+      - name: "homepage"
+        label: "Homepage"
+        file: "src/content/site/homepage.yml"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Left Text", name: "leftText", widget: "string", default: "ITSA" }
+              - { label: "Right Text", name: "rightText", widget: "string", default: "STUDIO" }
+
+          - { label: "Tagline", name: "tagline", widget: "string", default: "DESIGN WITH A SOUL" }
+
+          - { label: "Manifesto", name: "manifesto", widget: "text" }
+
+          - label: "Values"
+            name: "values"
+            widget: "list"
+            fields:
+              - { label: "Number", name: "number", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+          - label: "Navigation"
+            name: "nav"
+            widget: "object"
+            fields:
+              - label: "Links"
+                name: "links"
+                widget: "list"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
+
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            fields:
+              - { label: "Tagline", name: "tagline", widget: "string" }

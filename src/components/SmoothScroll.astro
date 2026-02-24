@@ -1,0 +1,140 @@
+---
+// SmoothScroll — Lenis smooth scroll + GSAP ScrollTrigger ticker sync
+// This component initializes the smooth scroll engine and all page animations.
+// It ships as a client-side script via Astro's `is:inline` or module scripts.
+---
+
+<script>
+  import Lenis from 'lenis';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Check for reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Initialize Lenis smooth scroll
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: !prefersReducedMotion,
+  });
+
+  // Sync Lenis scroll position with GSAP ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+
+  // Use GSAP ticker instead of requestAnimationFrame for perfect sync
+  gsap.ticker.add((time: number) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+
+  // ─── Nav scroll shadow ───────────────────────────────────────────
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    ScrollTrigger.create({
+      start: 'top -100',
+      onUpdate: (self) => {
+        if (self.direction === 1 && self.scroll() > 100) {
+          nav.classList.add('nav--scrolled');
+        } else if (self.scroll() <= 100) {
+          nav.classList.remove('nav--scrolled');
+        }
+      },
+    });
+  }
+
+  // ─── Hero entrance animation ─────────────────────────────────────
+  if (!prefersReducedMotion) {
+    const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const mascot = document.querySelector('[data-hero-mascot]');
+    const leftText = document.querySelector('[data-hero-text="left"]');
+    const rightText = document.querySelector('[data-hero-text="right"]');
+
+    if (mascot && leftText && rightText) {
+      // Set initial states
+      gsap.set(mascot, { scale: 0.8, opacity: 0 });
+      gsap.set(leftText, { x: -60, opacity: 0 });
+      gsap.set(rightText, { x: 60, opacity: 0 });
+      gsap.set(nav, { y: -20, opacity: 0 });
+
+      heroTimeline
+        .to(nav, { y: 0, opacity: 1, duration: 0.6 }, 0)
+        .to(mascot, { scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.7)' }, 0.2)
+        .to(leftText, { x: 0, opacity: 1, duration: 0.7 }, 0.5)
+        .to(rightText, { x: 0, opacity: 1, duration: 0.7 }, 0.6);
+    }
+  }
+
+  // ─── Marquee infinite scroll ─────────────────────────────────────
+  const marqueeTrack = document.querySelector('[data-marquee-track]') as HTMLElement;
+  if (marqueeTrack && !prefersReducedMotion) {
+    // Duplicate content for seamless loop
+    marqueeTrack.innerHTML += marqueeTrack.innerHTML;
+
+    const totalWidth = marqueeTrack.scrollWidth / 2;
+
+    const marqueeTween = gsap.to(marqueeTrack, {
+      x: -totalWidth,
+      duration: 20,
+      ease: 'none',
+      repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize((x: number) => parseFloat(String(x)) % totalWidth),
+      },
+    });
+
+    // Speed up/slow down based on scroll velocity
+    lenis.on('scroll', (e: { velocity: number }) => {
+      const speed = 1 + Math.abs(e.velocity) * 0.003;
+      gsap.to(marqueeTween, { timeScale: speed, duration: 0.3 });
+    });
+  }
+
+  // ─── Manifesto scroll reveal ─────────────────────────────────────
+  const manifestoText = document.querySelector('[data-manifesto-text]') as HTMLElement;
+  if (manifestoText && !prefersReducedMotion) {
+    // Split text into words manually (SplitText alternative for simplicity)
+    const words = manifestoText.textContent?.trim().split(/\s+/) || [];
+    manifestoText.innerHTML = words
+      .map((word) => `<span class="manifesto-word" style="display:inline-block;overflow:hidden"><span style="display:inline-block">${word}</span></span>`)
+      .join(' ');
+
+    const innerSpans = manifestoText.querySelectorAll('.manifesto-word > span');
+
+    gsap.set(innerSpans, { yPercent: 110 });
+
+    gsap.to(innerSpans, {
+      yPercent: 0,
+      duration: 0.6,
+      stagger: 0.04,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: manifestoText,
+        start: 'top 80%',
+        end: 'bottom 60%',
+        toggleActions: 'play none none none',
+      },
+    });
+  }
+
+  // ─── Values staggered fade-up ────────────────────────────────────
+  const valuesItems = document.querySelectorAll('[data-values-item]');
+  if (valuesItems.length && !prefersReducedMotion) {
+    gsap.set(valuesItems, { y: 40, opacity: 0 });
+
+    gsap.to(valuesItems, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7,
+      stagger: 0.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '[data-values]',
+        start: 'top 75%',
+        toggleActions: 'play none none none',
+      },
+    });
+  }
+</script>

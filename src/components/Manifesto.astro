@@ -1,0 +1,39 @@
+---
+interface Props {
+  text?: string;
+}
+
+const { text = "We believe great design isn't decoration — it's a conversation between form and feeling. Every pixel carries intention. Every space tells a story." } = Astro.props;
+---
+
+<section class="manifesto" data-manifesto>
+  <div class="manifesto__inner">
+    <p class="manifesto__text type-manifesto" data-manifesto-text>
+      {text}
+    </p>
+  </div>
+</section>
+
+<style>
+  .manifesto {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    overflow: hidden;
+  }
+
+  .manifesto__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .manifesto__text {
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .manifesto {
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+  }
+</style>

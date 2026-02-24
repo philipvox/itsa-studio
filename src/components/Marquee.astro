@@ -1,0 +1,49 @@
+---
+interface Props {
+  text?: string;
+}
+
+const { text = 'DESIGN WITH A SOUL' } = Astro.props;
+const items = Array(6).fill(text);
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track" data-marquee-track>
+    {items.map((t) => (
+      <span class="marquee__item type-marquee">
+        {t}<span class="marquee__separator">&bull;</span>
+      </span>
+    ))}
+  </div>
+  <div class="marquee__line"></div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    padding: var(--spacing-md) 0;
+    position: relative;
+  }
+
+  .marquee__track {
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
+  }
+
+  .marquee__item {
+    flex-shrink: 0;
+    padding: 0 var(--spacing-md);
+  }
+
+  .marquee__separator {
+    color: var(--color-accent);
+    margin-left: var(--spacing-md);
+  }
+
+  .marquee__line {
+    height: 2px;
+    background-color: var(--color-blue);
+    margin-top: var(--spacing-md);
+  }
+</style>

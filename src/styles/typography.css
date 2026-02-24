@@ -1,0 +1,46 @@
+/* ==========================================================================
+   ITSA Studio — Fluid Typography
+   Uses clamp() for smooth scaling between breakpoints
+   ========================================================================== */
+
+/* Display — Hero text "ITSA" / "STUDIO" */
+.type-display {
+  font-size: clamp(3rem, 8vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: 0.08em;
+}
+
+/* Headline — Section titles */
+.type-headline {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: 0.06em;
+}
+
+/* Subhead — Values headings, nav */
+.type-subhead {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+}
+
+/* Body — General text */
+.type-body {
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+/* Marquee — Scrolling text */
+.type-marquee {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: 0.15em;
+}
+
+/* Manifesto — Quote text */
+.type-manifesto {
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+}

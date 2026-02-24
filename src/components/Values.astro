@@ -1,0 +1,81 @@
+---
+interface Props {
+  items?: { number: string; title: string; description: string }[];
+}
+
+const { items = [
+  { number: '01', title: 'Purpose First', description: 'Every project begins with why. We dig deep to understand the soul of your brand before a single line is drawn.' },
+  { number: '02', title: 'Craft Over Trend', description: 'Trends fade. Craftsmanship endures. We build identities that outlast the algorithm.' },
+  { number: '03', title: 'Bold Simplicity', description: 'The strongest ideas need the least explanation. We strip away the unnecessary to reveal what matters.' },
+] } = Astro.props;
+---
+
+<section class="values" data-values>
+  <div class="values__inner">
+    {items.map((value) => (
+      <article class="values__item" data-values-item>
+        <span class="values__number type-display">{value.number}</span>
+        <div class="values__content">
+          <h3 class="values__title type-subhead">{value.title}</h3>
+          <p class="values__description type-body">{value.description}</p>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .values {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .values__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+
+  .values__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+  }
+
+  .values__number {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    line-height: 0.8;
+  }
+
+  .values__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding-top: 0.5em;
+  }
+
+  .values__title {
+    color: var(--color-text);
+  }
+
+  .values__description {
+    color: var(--color-text);
+    opacity: 0.75;
+    max-width: 50ch;
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 768px) {
+    .values {
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .values__item {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+  }
+</style>
