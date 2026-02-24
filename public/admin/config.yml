@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: philipvox/itsa-studio
   branch: main
 
 media_folder: "src/assets/images"

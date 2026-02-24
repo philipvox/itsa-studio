@@ -43,8 +43,6 @@ const {
       crossorigin
     />
 
-    <!-- Netlify Identity widget (for CMS auth) -->
-    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <slot />
@@ -57,19 +55,6 @@ const {
         "name": "ITSA Studio",
         "description": "Creative design studio crafting meaningful brand experiences and visual identities.",
         "url": "https://itsastudio.com"
-      }
-    </script>
-
-    <!-- Netlify Identity redirect after login -->
-    <script is:inline>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user) => {
-          if (!user) {
-            window.netlifyIdentity.on('login', () => {
-              document.location.href = '/admin/';
-            });
-          }
-        });
       }
     </script>
   </body>
