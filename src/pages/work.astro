@@ -1,0 +1,53 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Services from '../components/Services.astro';
+import Values from '../components/Values.astro';
+import Footer from '../components/Footer.astro';
+import SmoothScroll from '../components/SmoothScroll.astro';
+
+const work = await getEntry('pages', 'work');
+const { services, values } = work.data;
+---
+
+<BaseLayout title="Work — ITSA Studio" description="Our capabilities: brand identity, digital design, art direction, creative strategy, and more.">
+  <Nav />
+  <main>
+    <PageHeader title="Work" />
+    <Services items={services} />
+    <section class="selected-work" data-selected-work>
+      <div class="selected-work__inner">
+        <span class="selected-work__label type-body">Selected Work</span>
+        <p class="selected-work__placeholder type-display">Coming Soon</p>
+      </div>
+    </section>
+    <Values items={values} />
+  </main>
+  <Footer />
+  <SmoothScroll />
+</BaseLayout>
+
+<style>
+  .selected-work {
+    padding: var(--spacing-xl) var(--spacing-lg);
+    text-align: center;
+  }
+
+  .selected-work__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .selected-work__label {
+    opacity: 0.4;
+    display: block;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .selected-work__placeholder {
+    opacity: 0.12;
+    padding: var(--spacing-xl) 0;
+  }
+</style>

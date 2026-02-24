@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import SmoothScroll from '../../components/SmoothScroll.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('journal');
+  return articles.map((article) => ({
+    params: { slug: article.id.replace(/\.md$/, '') },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={`${article.data.title} — ITSA Studio`} description={article.data.description}>
+  <Nav />
+  <main>
+    <article class="article">
+      <header class="article__header">
+        <a href="/info" class="article__back type-body">← Back</a>
+        <h1 class="article__title">{article.data.title}</h1>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+  </main>
+  <Footer />
+  <SmoothScroll />
+</BaseLayout>
+
+<style>
+  .article {
+    padding-top: calc(var(--spacing-xl) + var(--nav-height));
+    padding-bottom: var(--spacing-xl);
+  }
+
+  .article__header {
+    max-width: 65ch;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .article__back {
+    opacity: 0.4;
+    display: inline-block;
+    margin-bottom: var(--spacing-md);
+    transition: opacity 0.2s ease;
+  }
+
+  .article__back:hover {
+    opacity: 0.7;
+  }
+
+  .article__title {
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    letter-spacing: 0.05em;
+    font-weight: normal;
+    line-height: 1.2;
+  }
+
+  /* Prose styles for rendered Markdown */
+  .prose {
+    max-width: 65ch;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
+
+  .prose :global(p) {
+    font-size: clamp(0.8rem, 0.95vw, 0.9375rem);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5em;
+    text-transform: none;
+  }
+
+  .prose :global(h2) {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    letter-spacing: 0.06em;
+    font-weight: normal;
+    margin-top: 3em;
+    margin-bottom: 1em;
+  }
+
+  .prose :global(h3) {
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    letter-spacing: 0.06em;
+    font-weight: normal;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--spacing-md);
+    margin: 2em 0;
+    opacity: 0.8;
+  }
+
+  .prose :global(blockquote p) {
+    margin-bottom: 0.75em;
+  }
+
+  .prose :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s ease;
+  }
+
+  .prose :global(a:hover) {
+    opacity: 0.7;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 1.5em;
+    padding-left: 1.5em;
+    list-style: disc;
+  }
+
+  .prose :global(li) {
+    font-size: clamp(0.8rem, 0.95vw, 0.9375rem);
+    line-height: 1.7;
+    margin-bottom: 0.5em;
+    text-transform: none;
+  }
+
+  .prose :global(em) {
+    font-style: italic;
+  }
+
+  .prose :global(strong) {
+    font-weight: normal;
+    letter-spacing: 0.06em;
+    font-size: 0.9375em;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid rgba(26, 26, 26, 0.12);
+    margin: 3em 0;
+  }
+
+  @media (max-width: 480px) {
+    .article__header {
+      padding: 0 var(--spacing-md);
+    }
+
+    .prose {
+      padding: 0 var(--spacing-md);
+    }
+  }
+</style>

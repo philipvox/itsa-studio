@@ -1,0 +1,15 @@
+services:
+  - "Brand Identity"
+  - "Digital Design"
+  - "Art Direction"
+  - "Creative Strategy"
+  - "Web Development"
+  - "Motion Design"
+
+values:
+  - number: "01"
+    description: "We work with computers to make real things"
+  - number: "02"
+    description: "We work with humans to make things computers can't"
+  - number: "03"
+    description: "We work with companies to make things work for their users"

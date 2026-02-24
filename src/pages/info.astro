@@ -1,0 +1,103 @@
+---
+import { getEntry, getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import PageHeader from '../components/PageHeader.astro';
+import TeamMember from '../components/TeamMember.astro';
+import Footer from '../components/Footer.astro';
+import SmoothScroll from '../components/SmoothScroll.astro';
+
+const info = await getEntry('pages', 'info');
+const team = info.data.team;
+
+const articles = await getCollection('journal');
+articles.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout title="Info — ITSA Studio" description="Meet the team behind ITSA Studio and explore our writing on design, creativity, and culture.">
+  <Nav />
+  <main>
+    <PageHeader title="Info" />
+
+    <section class="team" data-team>
+      <div class="team__inner">
+        <div class="team__header">
+          <span class="team__label type-body">Team</span>
+        </div>
+        <div class="team__grid">
+          {team.map((member: { name: string; title: string; bio: string; clients: string[] }) => (
+            <TeamMember
+              name={member.name}
+              title={member.title}
+              bio={member.bio}
+              clients={member.clients}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="journal" data-journal>
+      <div class="journal__inner">
+        <div class="journal__header">
+          <span class="journal__label type-body">Writing</span>
+        </div>
+        <ul class="journal__list" role="list">
+          {articles.map((article) => (
+            <li class="journal__item" data-journal-item>
+              <a href={`/journal/${article.id.replace(/\.md$/, '')}`} class="journal__link type-headline">
+                <span>{article.data.title}</span>
+                <svg class="journal__arrow" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+                  <path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <SmoothScroll />
+</BaseLayout>
+
+<style>
+  .team {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .team__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-lg);
+  }
+
+  .team__label {
+    color: var(--color-text);
+    opacity: 0.4;
+  }
+
+  .team__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+  }
+
+  @media (max-width: 768px) {
+    .team {
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .team__inner {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .team__grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+  }
+</style>

@@ -8,31 +8,12 @@ public_folder: "/src/assets/images"
 
 collections:
   - name: "site"
-    label: "Site Content"
+    label: "Site Settings"
     files:
-      - name: "homepage"
-        label: "Homepage"
-        file: "src/content/site/homepage.yml"
+      - name: "global"
+        label: "Global Settings"
+        file: "src/content/site/global.yml"
         fields:
-          - label: "Hero"
-            name: "hero"
-            widget: "object"
-            fields:
-              - { label: "Left Text", name: "leftText", widget: "string", default: "ITSA" }
-              - { label: "Right Text", name: "rightText", widget: "string", default: "STUDIO" }
-
-          - { label: "Tagline", name: "tagline", widget: "string", default: "DESIGN WITH A SOUL" }
-
-          - { label: "Manifesto", name: "manifesto", widget: "text" }
-
-          - label: "Values"
-            name: "values"
-            widget: "list"
-            fields:
-              - { label: "Number", name: "number", widget: "string" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "text" }
-
           - label: "Navigation"
             name: "nav"
             widget: "object"
@@ -43,9 +24,89 @@ collections:
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "URL", name: "url", widget: "string" }
-
           - label: "Footer"
             name: "footer"
             widget: "object"
             fields:
               - { label: "Tagline", name: "tagline", widget: "string" }
+              - label: "Social Links"
+                name: "social"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
+              - { label: "Location", name: "location", widget: "string", required: false, default: "Seattle, WA" }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "home"
+        label: "Home"
+        file: "src/content/pages/home.yml"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Left Text", name: "leftText", widget: "string", default: "ITSA" }
+              - { label: "Right Text", name: "rightText", widget: "string", default: "STUDIO" }
+          - { label: "Tagline", name: "tagline", widget: "string", default: "DESIGN WITH A SOUL" }
+          - { label: "Manifesto", name: "manifesto", widget: "text" }
+
+      - name: "work"
+        label: "Work"
+        file: "src/content/pages/work.yml"
+        fields:
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            field: { label: "Service", name: "service", widget: "string" }
+          - label: "Values"
+            name: "values"
+            widget: "list"
+            fields:
+              - { label: "Number", name: "number", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+      - name: "info"
+        label: "Info"
+        file: "src/content/pages/info.yml"
+        fields:
+          - label: "Team Members"
+            name: "team"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Bio", name: "bio", widget: "text" }
+              - label: "Clients"
+                name: "clients"
+                widget: "list"
+                field: { label: "Client", name: "client", widget: "string" }
+
+      - name: "contact"
+        label: "Contact"
+        file: "src/content/pages/contact.yml"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - label: "Social Links"
+            name: "social"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+          - { label: "Location", name: "location", widget: "string" }
+
+  - name: "journal"
+    label: "Journal"
+    folder: "src/content/journal"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }

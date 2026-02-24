@@ -1,0 +1,19 @@
+nav:
+  links:
+    - label: "Work"
+      url: "/work"
+    - label: "Info"
+      url: "/info"
+    - label: "Contact"
+      url: "/contact"
+
+footer:
+  tagline: "Design with a Soul"
+  social:
+    - label: "Instagram"
+      url: "https://instagram.com/itsastudio"
+    - label: "Twitter"
+      url: "https://twitter.com/itsastudio"
+    - label: "LinkedIn"
+      url: "https://linkedin.com/company/itsastudio"
+  location: "Seattle, WA"

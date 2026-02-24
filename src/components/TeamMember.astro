@@ -1,0 +1,62 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  bio: string;
+  clients: string[];
+}
+
+const { name, title, bio, clients } = Astro.props;
+---
+
+<article class="member" data-team-member>
+  <h2 class="member__name type-headline">{name}</h2>
+  <p class="member__title type-body">{title}</p>
+  <p class="member__bio type-body">{bio}</p>
+  <div class="member__clients">
+    <span class="member__clients-label type-body">Selected Clients</span>
+    <div class="member__clients-rule"></div>
+    <p class="member__clients-list type-body">{clients.join('  ·  ')}</p>
+  </div>
+</article>
+
+<style>
+  .member {
+    padding-top: var(--spacing-md);
+  }
+
+  .member__name {
+    font-weight: normal;
+    margin-bottom: 0.25rem;
+  }
+
+  .member__title {
+    opacity: 0.4;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .member__bio {
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    max-width: 55ch;
+  }
+
+  .member__clients {
+    margin-top: var(--spacing-lg);
+  }
+
+  .member__clients-label {
+    opacity: 0.4;
+  }
+
+  .member__clients-rule {
+    height: 1px;
+    background: rgba(26, 26, 26, 0.12);
+    margin: var(--spacing-sm) 0;
+  }
+
+  .member__clients-list {
+    opacity: 0.7;
+    line-height: 1.7;
+  }
+</style>

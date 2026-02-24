@@ -1,0 +1,11 @@
+label: "Get in touch"
+heading: "Let's work together"
+email: "hello@itsastudio.com"
+social:
+  - label: "Instagram"
+    url: "https://instagram.com/itsastudio"
+  - label: "Twitter"
+    url: "https://twitter.com/itsastudio"
+  - label: "LinkedIn"
+    url: "https://linkedin.com/company/itsastudio"
+location: "Seattle, WA"

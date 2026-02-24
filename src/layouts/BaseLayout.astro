@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
 interface Props {
   title?: string;
   description?: string;
@@ -6,7 +8,7 @@ interface Props {
 
 const {
   title = 'ITSA Studio — Design with a Soul',
-  description = 'Creative design studio crafting meaningful brand experiences and visual identities.',
+  description = 'ITSA Studio is the creative practice of Philip Glenn and Teagan Lindsay — a Seattle-based design studio specializing in brand identity, digital design, and art direction.',
 } = Astro.props;
 ---
 
@@ -31,7 +33,7 @@ const {
 
     <title>{title}</title>
 
-    <link rel="canonical" href="https://itsastudio.com" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Preload critical font -->
@@ -43,6 +45,7 @@ const {
       crossorigin
     />
 
+    <ClientRouter />
   </head>
   <body>
     <slot />
@@ -53,7 +56,7 @@ const {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "ITSA Studio",
-        "description": "Creative design studio crafting meaningful brand experiences and visual identities.",
+        "description": "ITSA Studio is the creative practice of Philip Glenn and Teagan Lindsay — a Seattle-based design studio.",
         "url": "https://itsastudio.com"
       }
     </script>

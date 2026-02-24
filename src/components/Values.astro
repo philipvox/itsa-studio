@@ -1,71 +1,75 @@
 ---
 interface Props {
-  items?: { number: string; title: string; description: string }[];
+  items?: { number: string; description: string }[];
 }
 
 const { items = [
-  { number: '01', title: 'Purpose First', description: 'Every project begins with why. We dig deep to understand the soul of your brand before a single line is drawn.' },
-  { number: '02', title: 'Craft Over Trend', description: 'Trends fade. Craftsmanship endures. We build identities that outlast the algorithm.' },
-  { number: '03', title: 'Bold Simplicity', description: 'The strongest ideas need the least explanation. We strip away the unnecessary to reveal what matters.' },
+  { number: '01', description: 'We work with computers to make real things' },
+  { number: '02', description: 'We work with humans to make things computers can\'t' },
+  { number: '03', description: 'We work with companies to make things work for their users' },
 ] } = Astro.props;
 ---
 
 <section class="values" data-values>
   <div class="values__inner">
-    {items.map((value) => (
-      <article class="values__item" data-values-item>
-        <span class="values__number type-display">{value.number}</span>
-        <div class="values__content">
-          <h3 class="values__title type-subhead">{value.title}</h3>
-          <p class="values__description type-body">{value.description}</p>
-        </div>
-      </article>
-    ))}
+    <div class="values__header">
+      <span class="values__label type-body">What we believe</span>
+    </div>
+    <div class="values__list">
+      {items.map((value) => (
+        <article class="values__item" data-values-item>
+          <span class="values__number type-body">{value.number}</span>
+          <p class="values__description type-headline">{value.description}</p>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
   .values {
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg);
   }
 
   .values__inner {
     max-width: var(--max-width);
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-lg);
+  }
+
+  .values__label {
+    color: var(--color-text);
+    opacity: 0.4;
+  }
+
+  .values__list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
   }
 
   .values__item {
     display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-lg);
+    align-items: baseline;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+    border-top: 1px solid rgba(26, 26, 26, 0.12);
+    color: var(--color-accent);
+  }
+
+  .values__item:last-child {
+    border-bottom: 1px solid rgba(26, 26, 26, 0.12);
   }
 
   .values__number {
-    color: var(--color-accent);
     flex-shrink: 0;
-    line-height: 0.8;
-  }
-
-  .values__content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    padding-top: 0.5em;
-  }
-
-  .values__title {
-    color: var(--color-text);
+    opacity: 0.4;
+    min-width: 2rem;
   }
 
   .values__description {
-    color: var(--color-text);
-    opacity: 0.75;
-    max-width: 50ch;
-    text-transform: none;
-    letter-spacing: 0.02em;
+    max-width: 45ch;
   }
 
   @media (max-width: 768px) {
@@ -73,8 +77,12 @@ const { items = [
       padding: var(--spacing-xl) var(--spacing-md);
     }
 
+    .values__inner {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
     .values__item {
-      flex-direction: column;
       gap: var(--spacing-sm);
     }
   }

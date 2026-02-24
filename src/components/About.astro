@@ -1,0 +1,86 @@
+---
+interface Props {
+  bio?: string;
+  clients?: string[];
+}
+
+const {
+  bio = "Philip Glenn is a Creative Director and Designer based in Seattle. Trained at the Rhode Island School of Design, his practice spans identity, UX, art direction, 3D, and illustration. He has spent over a decade shaping brands and creative teams — most recently growing Propaganda Creative to 18 people and 2,500+ projects.",
+  clients = ['Ryan Lewis', 'Joe Perez', 'Foo & Foo', 'Left Hand LA', 'AT&T', 'Verizon Mobile'],
+} = Astro.props;
+---
+
+<section class="about" id="info" data-about>
+  <div class="about__inner">
+    <div class="about__header">
+      <span class="about__label type-body">About</span>
+    </div>
+    <div class="about__content">
+      <p class="about__bio type-body">{bio}</p>
+      {clients.length > 0 && (
+        <div class="about__clients">
+          <span class="about__clients-label type-body">Selected Clients</span>
+          <div class="about__clients-rule"></div>
+          <p class="about__clients-list type-body">
+            {clients.join('  ·  ')}
+          </p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .about__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-lg);
+  }
+
+  .about__label {
+    color: var(--color-text);
+    opacity: 0.4;
+  }
+
+  .about__bio {
+    line-height: 1.7;
+    max-width: 55ch;
+    letter-spacing: 0.03em;
+  }
+
+  .about__clients {
+    margin-top: var(--spacing-lg);
+  }
+
+  .about__clients-label {
+    opacity: 0.4;
+  }
+
+  .about__clients-rule {
+    height: 1px;
+    background: rgba(26, 26, 26, 0.12);
+    margin: var(--spacing-sm) 0;
+  }
+
+  .about__clients-list {
+    opacity: 0.7;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .about {
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .about__inner {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+  }
+</style>

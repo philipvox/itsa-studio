@@ -1,0 +1,80 @@
+---
+interface Props {
+  heading?: string;
+  email?: string;
+}
+
+const { heading = "Let's work together", email = 'hello@itsastudio.com' } = Astro.props;
+---
+
+<section class="contact" data-contact>
+  <div class="contact__inner">
+    <p class="contact__label type-body">Get in touch</p>
+    <h2 class="contact__heading">{heading}</h2>
+    <a href={`mailto:${email}`} class="contact__email type-headline">{email}</a>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    padding: 15vh var(--spacing-lg);
+    text-align: center;
+  }
+
+  .contact__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .contact__label {
+    opacity: 0.4;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .contact__heading {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .contact__email {
+    display: inline-block;
+    color: var(--color-bg);
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+    position: relative;
+  }
+
+  .contact__email::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-bg);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .contact__email:hover {
+    opacity: 1;
+  }
+
+  .contact__email:hover::after {
+    opacity: 0.5;
+  }
+
+  @media (max-width: 768px) {
+    .contact {
+      padding: 10vh var(--spacing-md);
+    }
+
+    .contact__heading {
+      font-size: clamp(1.5rem, 8vw, 2.5rem);
+    }
+  }
+</style>

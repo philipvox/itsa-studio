@@ -1,46 +1,40 @@
 /* ==========================================================================
    ITSA Studio — Fluid Typography
-   Uses clamp() for smooth scaling between breakpoints
+   Scale ratio: ~1.25 (major third), base 1rem
+   Following NNGroup guidance: restrained, readable hierarchy
    ========================================================================== */
 
-/* Display — Hero text "ITSA" / "STUDIO" */
+/* Display — Hero "STUDIO" label */
 .type-display {
-  font-size: clamp(3rem, 8vw, 8rem);
-  line-height: 0.9;
-  letter-spacing: 0.08em;
-}
-
-/* Headline — Section titles */
-.type-headline {
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  line-height: 1;
-  letter-spacing: 0.06em;
-}
-
-/* Subhead — Values headings, nav */
-.type-subhead {
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  line-height: 1.2;
-  letter-spacing: 0.1em;
-}
-
-/* Body — General text */
-.type-body {
-  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
-  line-height: 1.5;
-  letter-spacing: 0.04em;
-}
-
-/* Marquee — Scrolling text */
-.type-marquee {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.25rem, 1.5vw, 1.75rem);
   line-height: 1;
   letter-spacing: 0.15em;
 }
 
+/* Headline — Values text, section headings */
+.type-headline {
+  font-size: clamp(1rem, 1.2vw, 1.35rem);
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+}
+
+/* Subhead — Nav links, tagline words */
+.type-subhead {
+  font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+}
+
+/* Body — Footer, descriptions */
+.type-body {
+  font-size: clamp(0.75rem, 0.85vw, 0.875rem);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
 /* Manifesto — Quote text */
 .type-manifesto {
-  font-size: clamp(1.5rem, 4vw, 3.5rem);
-  line-height: 1.2;
+  font-size: clamp(1.1rem, 1.8vw, 1.75rem);
+  line-height: 1.3;
   letter-spacing: 0.05em;
 }

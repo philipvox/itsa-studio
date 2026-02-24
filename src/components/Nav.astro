@@ -1,13 +1,9 @@
 ---
-interface Props {
-  links?: { label: string; url: string }[];
-}
+import { getEntry } from 'astro:content';
 
-const { links = [
-  { label: 'Work', url: '#work' },
-  { label: 'Info', url: '#info' },
-  { label: 'Contact', url: '#contact' },
-] } = Astro.props;
+const global = await getEntry('site', 'global');
+const links = global.data.nav.links;
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="nav" id="site-nav">
@@ -21,7 +17,16 @@ const { links = [
   </a>
   <nav class="nav__menu" role="navigation" aria-label="Main navigation">
     {links.map((link) => (
-      <a href={link.url} class="nav__link type-subhead">{link.label}</a>
+      <a
+        href={link.url}
+        class:list={[
+          'nav__link',
+          'type-subhead',
+          { 'nav__link--active': currentPath === link.url || currentPath === link.url + '/' }
+        ]}
+      >
+        {link.label}
+      </a>
     ))}
   </nav>
 </header>
@@ -66,11 +71,16 @@ const { links = [
   }
 
   .nav__link {
+    opacity: 0.4;
     transition: opacity 0.2s ease;
   }
 
   .nav__link:hover {
     opacity: 0.7;
+  }
+
+  .nav__link--active {
+    opacity: 1;
   }
 
   .nav__link:focus-visible {

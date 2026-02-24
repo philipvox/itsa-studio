@@ -3,12 +3,12 @@ interface Props {
   text?: string;
 }
 
-const { text = "We believe great design isn't decoration — it's a conversation between form and feeling. Every pixel carries intention. Every space tells a story." } = Astro.props;
+const { text = "The advancement of technology doesn't need to come at the expense of human creativity." } = Astro.props;
 ---
 
 <section class="manifesto" data-manifesto>
   <div class="manifesto__inner">
-    <p class="manifesto__text type-manifesto" data-manifesto-text>
+    <p class="manifesto__text" data-manifesto-text>
       {text}
     </p>
   </div>
@@ -18,22 +18,30 @@ const { text = "We believe great design isn't decoration — it's a conversation
   .manifesto {
     background-color: var(--color-accent);
     color: var(--color-bg);
-    padding: var(--spacing-2xl) var(--spacing-lg);
-    overflow: hidden;
+    padding: 12vh var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
   }
 
   .manifesto__inner {
-    max-width: var(--max-width);
+    max-width: 48ch;
     margin: 0 auto;
+    text-align: center;
   }
 
   .manifesto__text {
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
   @media (max-width: 768px) {
     .manifesto {
-      padding: var(--spacing-xl) var(--spacing-md);
+      padding: 8vh var(--spacing-md);
+      min-height: 40vh;
     }
   }
 </style>

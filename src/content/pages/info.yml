@@ -1,0 +1,19 @@
+team:
+  - name: "Philip Glenn"
+    title: "Creative Director & Designer"
+    bio: "Trained at the Rhode Island School of Design, his practice spans identity, UX, art direction, 3D, and illustration. He has spent over a decade shaping brands and creative teams — most recently growing Propaganda Creative to 18 people and 2,500+ projects."
+    clients:
+      - "Ryan Lewis"
+      - "Joe Perez"
+      - "Foo & Foo"
+      - "Left Hand LA"
+      - "AT&T"
+      - "Verizon Mobile"
+  - name: "Teagan Lindsay"
+    title: "Designer & Creative Director"
+    bio: "Trained at the Rhode Island School of Design and Barnard College, her practice bridges fashion, costume, and visual design. She presented Project Frida — a menswear collection through a feminist lens — at New York Fashion Week, and has shaped brands across fashion, hospitality, and tech."
+    clients:
+      - "Lyn Paolo"
+      - "Frame"
+      - "Sixth Man Marketing"
+      - "Prsna"

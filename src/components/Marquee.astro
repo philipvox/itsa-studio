@@ -4,46 +4,47 @@ interface Props {
 }
 
 const { text = 'DESIGN WITH A SOUL' } = Astro.props;
-const items = Array(6).fill(text);
+const words = text.split(' ');
 ---
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee__track" data-marquee-track>
-    {items.map((t) => (
-      <span class="marquee__item type-marquee">
-        {t}<span class="marquee__separator">&bull;</span>
-      </span>
+<div class="tagline" data-tagline aria-label={text}>
+  <div class="tagline__inner">
+    {words.map((word) => (
+      <span class="tagline__word type-subhead">{word}</span>
     ))}
   </div>
-  <div class="marquee__line"></div>
+  <div class="tagline__line"></div>
 </div>
 
 <style>
-  .marquee {
-    overflow: hidden;
-    padding: var(--spacing-md) 0;
-    position: relative;
+  .tagline {
+    padding: var(--spacing-md) var(--spacing-lg);
   }
 
-  .marquee__track {
+  .tagline__inner {
     display: flex;
-    white-space: nowrap;
-    will-change: transform;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    padding-bottom: var(--spacing-md);
   }
 
-  .marquee__item {
-    flex-shrink: 0;
-    padding: 0 var(--spacing-md);
-  }
-
-  .marquee__separator {
+  .tagline__word {
     color: var(--color-accent);
-    margin-left: var(--spacing-md);
   }
 
-  .marquee__line {
-    height: 2px;
+  .tagline__line {
+    height: 1px;
     background-color: var(--color-blue);
-    margin-top: var(--spacing-md);
+  }
+
+  @media (max-width: 480px) {
+    .tagline {
+      padding: var(--spacing-sm) var(--spacing-sm);
+    }
+
+    .tagline__inner {
+      padding-bottom: var(--spacing-sm);
+    }
   }
 </style>

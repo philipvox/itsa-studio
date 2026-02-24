@@ -1,0 +1,126 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SmoothScroll from '../components/SmoothScroll.astro';
+
+const contactData = await getEntry('pages', 'contact');
+const { label, heading, email, social, location } = contactData.data;
+---
+
+<BaseLayout title="Contact — ITSA Studio" description="Get in touch with ITSA Studio. Let's work together.">
+  <Nav />
+  <main>
+    <section class="contact" data-contact>
+      <div class="contact__inner">
+        <p class="contact__label type-body">{label}</p>
+        <h1 class="contact__heading">{heading}</h1>
+        <a href={`mailto:${email}`} class="contact__email type-headline">{email}</a>
+        <ul class="contact__social">
+          {social.map((item: { label: string; url: string }) => (
+            <li>
+              <a href={item.url} class="contact__social-link type-body" target="_blank" rel="noopener noreferrer">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="contact__location type-body">{location}</p>
+      </div>
+    </section>
+  </main>
+  <Footer variant="light" />
+  <SmoothScroll />
+</BaseLayout>
+
+<style>
+  .contact {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    padding: 15vh var(--spacing-lg);
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .contact__label {
+    opacity: 0.4;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .contact__heading {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--spacing-lg);
+    font-weight: normal;
+  }
+
+  .contact__email {
+    display: inline-block;
+    color: var(--color-bg);
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+    position: relative;
+  }
+
+  .contact__email::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-bg);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .contact__email:hover {
+    opacity: 1;
+  }
+
+  .contact__email:hover::after {
+    opacity: 0.5;
+  }
+
+  .contact__social {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+    list-style: none;
+  }
+
+  .contact__social-link {
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+  }
+
+  .contact__social-link:hover {
+    opacity: 1;
+  }
+
+  .contact__location {
+    margin-top: var(--spacing-lg);
+    opacity: 0.25;
+  }
+
+  @media (max-width: 768px) {
+    .contact {
+      padding: 10vh var(--spacing-md);
+    }
+
+    .contact__heading {
+      font-size: clamp(1.5rem, 8vw, 2.5rem);
+    }
+  }
+</style>
